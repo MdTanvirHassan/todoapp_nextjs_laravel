@@ -1,2 +1,2 @@
-# todoapp-crud-nextjs-laravel
- todoapp-crud using nextjs-laravel
+# todoapp_nextjs_laravel
+ todoapp-crud-usingnextjs-laravel
