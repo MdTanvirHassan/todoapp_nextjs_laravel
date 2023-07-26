@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TodoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,3 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::post('todos/done/{todo}', [TodoController::class,'updateStatus']);
 Route::apiResource('todos',TodoController::class);
+Route::apiResource('contacts',ContactController::class);
+

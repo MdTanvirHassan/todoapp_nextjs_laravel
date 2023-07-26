@@ -22,5 +22,10 @@ class DatabaseSeeder extends Seeder
             'title' => 'Test Todo',
             'is_done' => 0
         ]);
+        \App\Models\Contact::create([
+            'name' => 'Tanvir Hassan',
+            'email' => 'example@example.com',
+            'phone' => '01925532372'
+        ]);
     }
 }
