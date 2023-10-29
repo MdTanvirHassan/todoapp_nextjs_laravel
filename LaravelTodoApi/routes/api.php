@@ -20,5 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::post('todos/done/{todo}', [TodoController::class,'updateStatus']);
 Route::apiResource('todos',TodoController::class);
+
+Route::get('contacts/editContact/{id}', [ContactController::class, 'editContact']);
 Route::apiResource('contacts',ContactController::class);
+
+
 
