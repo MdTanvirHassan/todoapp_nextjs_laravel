@@ -15,18 +15,7 @@ class ContactController extends Controller
         return response()->json(Contact::orderBy('created_at', 'desc')->get()); 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    // public function store(Request $request)
-    // {
-    //     Contact::create([
-    //         'name' => $request->name,
-    //         'email' => $request->email,
-    //         'phone' => $request->phone
-    //     ]);
-    //     return response()->json(true);
-    // }
+    
     public function store(Request $request)
 {
     try {
@@ -50,34 +39,7 @@ class ContactController extends Controller
     /**
      * Display the specified resource.
      */
-    // public function show(Contact $contact)
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Update the specified resource in storage.
-    //  */
-    // public function update(Request $request, Contact $contact)
-    // {
-    //     // Validate the incoming request data (e.g., name, email, phone)
-    //     $validatedData = $request->validate([
-    //         'name' => 'required',
-    //         'email' => 'required|email',
-    //         'phone' => 'required',
-    //     ]);
     
-    //     // Check if the contact exists
-    //     if (!$contact) {
-    //         return response()->json(['error' => 'Contact not found'], 404);
-    //     }
-    
-    //     // Update the contact using the validated data
-    //     $contact->update($validatedData);
-    
-    //     // Optionally, you can return a response to indicate the update was successful
-    //     return response()->json(['message' => 'Contact updated successfully']);
-    // }
     public function show($id)
     {
         $contact = Contact::find($id);

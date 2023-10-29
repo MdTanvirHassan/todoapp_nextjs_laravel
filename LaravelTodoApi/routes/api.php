@@ -22,6 +22,7 @@ Route::post('todos/done/{todo}', [TodoController::class,'updateStatus']);
 Route::apiResource('todos',TodoController::class);
 
 Route::get('contacts/editContact/{id}', [ContactController::class, 'editContact']);
+Route::get('contacts/showContact/{id}', [ContactController::class, 'showContact']);
 Route::apiResource('contacts',ContactController::class);
 
 
