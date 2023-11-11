@@ -27,5 +27,13 @@ class DatabaseSeeder extends Seeder
             'email' => 'example@example.com',
             'phone' => '01925532372'
         ]);
+
+        \App\Models\Employee::create([
+            'name' => 'Tanvir Hassan',
+            'email' => 'example@example.com',
+            'phone' => '01925532372',
+            'image' => 'No image to preview',
+            'is_active' => 1
+        ]);
     }
 }

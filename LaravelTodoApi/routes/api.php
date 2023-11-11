@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TodoController;
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 /*
@@ -24,6 +25,11 @@ Route::apiResource('todos',TodoController::class);
 Route::get('contacts/editContact/{id}', [ContactController::class, 'editContact']);
 Route::get('contacts/showContact/{id}', [ContactController::class, 'showContact']);
 Route::apiResource('contacts',ContactController::class);
+
+Route::apiResource('employees',EmployeeController::class);
+Route::get('employees/editEmployee/{id}', [EmployeeController::class, 'editEmployee']);
+Route::get('employees/showEmployee/{id}', [EmployeeController::class, 'showEmployee']);
+
 
 
 
