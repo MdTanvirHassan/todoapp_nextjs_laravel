@@ -54,9 +54,9 @@ class EmployeeController extends Controller
     
         $image = $request->file('image');
         $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $imagePath = env('SITE_URL') . 'uploads/employees/' . $imageName;  // Use SITE_URL
-        Storage::disk('public')->putFileAs('uploads/employees', $image, $imageName);
-       // dd($request->all(), $imagePath);
+        $imagePath = '/uploads/employees/' . $imageName;
+    
+        Storage::disk('public')->putFileAs('uploads/employees/', $image, $imageName);
     
         return $imagePath;
     }

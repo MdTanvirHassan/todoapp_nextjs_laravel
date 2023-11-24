@@ -29,38 +29,31 @@ class EmployeeController extends Controller
                 'phone' => 'required',
                 'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
-    
-            $imagePath = $this->uploadImage($request);
-    
+
+            $imagePath = null;
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $imagePath = '/uploads/employees/' . $imageName;
+                // Save the image to Laravel's public disk
+                Storage::disk('public')->putFileAs('uploads/employees/', $image, $imageName);
+                dd($request->all(), $imagePath);
+            }
+
             Employee::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'image' => $imagePath,
             ]);
-    
+
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
             \Log::error('Error in store method:', ['error' => $e->getMessage()]);
             return response()->json(['error' => 'Internal server error'], 500);
         }
     }
-    
-    private function uploadImage(Request $request): ?string
-    {
-        if (!$request->hasFile('image')) {
-            return null;
-        }
-    
-        $image = $request->file('image');
-        $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $imagePath = env('SITE_URL') . 'uploads/employees/' . $imageName;  // Use SITE_URL
-        Storage::disk('public')->putFileAs('uploads/employees', $image, $imageName);
-       // dd($request->all(), $imagePath);
-    
-        return $imagePath;
-    }
-    
 
     
     
