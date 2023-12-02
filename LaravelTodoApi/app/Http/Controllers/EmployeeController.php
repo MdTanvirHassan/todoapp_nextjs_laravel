@@ -54,7 +54,7 @@ class EmployeeController extends Controller
     
         $image = $request->file('image');
         $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $imagePath = env('SITE_URL') . 'uploads/employees/' . $imageName;  // Use SITE_URL
+        $imagePath = '/uploads/employees/' . $imageName;
         Storage::disk('public')->putFileAs('uploads/employees', $image, $imageName);
        // dd($request->all(), $imagePath);
     
@@ -81,28 +81,69 @@ class EmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    // public function update(Request $request, $id)
+    // {
+    //     $employee = Employee::find($id);
+
+    //     if (!$employee) {
+    //         return response()->json(['message' => 'employee not found'], 404);
+    //     }
+
+    //     $this->validate($request, [
+    //         'name' => 'required',
+    //         'email' => 'required|email',
+    //         'phone' => 'required',
+    //     ]);
+
+    //     $employee->update([
+    //         'name' => $request->input('name'),
+    //         'email' => $request->input('email'),
+    //         'phone' => $request->input('phone'),
+    //     ]);
+
+    //     return response()->json(['message' => 'employee updated successfully']);
+    // }
+
     public function update(Request $request, $id)
-    {
-        $employee = Employee::find($id);
+{
+    $employee = Employee::find($id);
 
-        if (!$employee) {
-            return response()->json(['message' => 'employee not found'], 404);
-        }
+    if (!$employee) {
+        return response()->json(['message' => 'Employee not found'], 404);
+    }
 
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
-        ]);
+    $this->validateEmployeeData($request);
+
+    try {
+        $newImagePath = $this->uploadImage($request);
 
         $employee->update([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
+            'image' => $newImagePath ?? $employee->image,
         ]);
-
-        return response()->json(['message' => 'employee updated successfully']);
+        \Log::info('Update method reached successfully.');
+        return response()->json(['message' => 'Employee updated successfully']);
+    } catch (\Exception $e) {
+        \Log::error('Error in update method:', ['error' => $e->getMessage()]);
+        return response()->json(['error' => 'Internal server error'], 500);
     }
+}
+
+private function validateEmployeeData(Request $request): void
+{
+    $this->validate($request, [
+        'name' => 'required',
+        'email' => 'required|email',
+        'phone' => 'required',
+        'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+}
+
+
+
+
     
 
     /**
